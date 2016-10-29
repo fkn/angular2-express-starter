@@ -1,0 +1,71 @@
+<table class="ui celled table">
+    <thead>
+    <tr>
+        <th colspan="2"> {{ groceries.name }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Calories</td>
+
+        <td class="selectable">
+            <a href="#">{{groceries.calories}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Fat</td>
+        <td class="selectable">
+            <a href="#">{{groceries.fat}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Protein</td>
+        <td class="selectable">
+            <a href="#">{{groceries.protein}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Carbohydrate</td>
+        <td class="selectable">
+            <a href="#">{{groceries.carbohydrate}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Acid</td>
+        <td class="selectable">
+            <a href="#">{{groceries.acid}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Polyols</td>
+        <td class="selectable">
+            <a href="#">{{groceries.polyols}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Fibre</td>
+        <td class="selectable">
+            <a href="#">{{groceries.fibre}}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>Ethanol</td>
+        <td class="selectable">
+            <a href="#">{{groceries.ethanol}}</a>
+        </td>
+    </tr>
+
+    </tbody>
+    <tfoot class="full-width">
+    <tr>
+        <th colspan="2">
+            <div class="ui right floated buttons">
+                <button (click)="goBack()" class="ui button">Cancel</button>
+                <div class="or"></div>
+                <button class="ui positive button">Save</button>
+            </div>
+
+        </th>
+    </tr>
+    </tfoot>
+</table>

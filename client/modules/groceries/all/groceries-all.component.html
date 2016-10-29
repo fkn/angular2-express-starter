@@ -1,3 +1,17 @@
-<sm-list class="relaxed selection divided">
-    <sm-item *ngFor="let item of groceriesArray">{{item.id}} {{item.name}}</sm-item>
-</sm-list>
+<div class="ui medium aligned divided animated selection list">
+    <div class="item" (click)="showGrocery(item.id)" *ngFor="let item of groceriesArray">
+        <div class="right floated middle aligned content">
+            <button class="ui medium inverted red button" (click)="removeGrocery()"><i class="Trash Outline icon"></i> Remove</button>
+        </div>
+        <div class="content">
+            <div class="middle aligned content">
+                <h4 class="ui grey header">{{item.id}} {{item.name}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="ui right floated inverted green button">Add new Grocery</button>
+
+<!--<sm-list class="relaxed selection divided">
+    <sm-item (click)="showGrocery(item.id)" *ngFor="let item of groceriesArray">{{item.id}} {{item.name}}</sm-item>
+</sm-list>-->

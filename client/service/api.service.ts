@@ -36,4 +36,11 @@ export class ApiService {
             .get('/api/grocery/')
             .map((response: Response) => response.json());        
     }
+    getGrocery(id: number) {
+        return this
+            .http
+            .get(`/api/grocery/${id}`)
+            .map((response: Response) => response.json());
+    }
+
 }
