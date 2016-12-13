@@ -22,7 +22,7 @@ recipeApi.get("/:id", (request: Request, response: Response) => {
 recipeApi.delete("/:id", (request: Request, response: Response) => {
     let id = request.params.id;
     db.Recipe
-        .destroy({ where: {id} })
+        .destroy({ where: { id } })
         .then(() => response.sendStatus(200));
 });
 
@@ -35,6 +35,18 @@ recipeApi.put("/", (request: Request, response: Response) => {
         .then(recipe => response.send(recipe));
 });
 
+recipeApi.get("/search/:term", (request: Request, response: Response) => {
+    db.Recipe
+        .findAll({
+            attributes: ['id', 'name'],
+            where: {
+                name: {
+                    $like: '%' + request.params.term + '%'
+                }
+            }
+        })
+        .then(items => response.send(items));
+});
 
 
 

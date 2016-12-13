@@ -51,6 +51,13 @@ export class ApiService {
             .map((response: Response) => true);
     }
 
+    searchRecipes(term: string) {
+        return this
+            .http
+            .get(`/api/recipe/search/${term}`)
+            .map((response: Response) => response.json());
+    };
+
     getGroceries() {
         return this
             .http

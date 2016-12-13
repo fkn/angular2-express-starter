@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 <h1>Recipe: {{ recipe.name }}</h1>
 <sm-button class="positive" (click)="deleteRecipe()" icon="delete">Delete recipe</sm-button>
 <p>{{ recipe.description }}</p>
 <fs-likes></fs-likes>
 
 <fs-comments></fs-comments>
+=======
+<sm-div *ngIf="!editMode">
+	<sm-button class="positive" (click)="turnEditMode()" icon="edit">Edit recipe</sm-button>
+	<sm-button class="positive" (click)="deleteRecipe()" icon="delete">Delete recipe</sm-button>
+    <h1>Recipe: {{ recipe.name }}</h1>
+	<p>{{ recipe.description }}</p>
+</sm-div>
+<sm-div *ngIf="editMode">
+    <sm-button class="positive" (click)="turnEditMode()" icon="edit">Save changes</sm-button>
+    <sm-input [control]="name" class="right fluid"></sm-input>
+	<sm-input [control]="descr" class="right fluid"></sm-input>
+</sm-div>
+>>>>>>> upstream/master
