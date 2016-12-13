@@ -17,7 +17,7 @@ export class GroceriesAllComponent implements OnInit {
     showGrocery(id: number) {
         this.router.navigate(['/grocery', id]);
     }
-
+ 
     remGrocery(item: any) {
         this.apiService.remGrocery(item.id).subscribe(()=> {
             for (let i = 0; i < this.groceriesArray.length; i++) {
@@ -33,9 +33,12 @@ export class GroceriesAllComponent implements OnInit {
         this.apiService.createGrocery(groceries).subscribe((data)=> {
             this.showGrocery(data.id)
         });
+
+
     }
 
     search(term: string) {
+
         if (term.length == 0) {
             console.log(term.length);
             this.ngOnInit();

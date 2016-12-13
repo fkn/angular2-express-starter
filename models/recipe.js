@@ -1,14 +1,14 @@
 'use strict';
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Recipe = sequelize.define('Recipe', {
     name: DataTypes.STRING,
     description: DataTypes.STRING
   }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
+      classMethods: {
+        associate: function (models) {
+          
+        }
       }
-    }
-  });
+    });
   return Recipe;
 };

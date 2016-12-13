@@ -6,13 +6,9 @@ import { ActivatedRoute, Params} from "@angular/router";
     selector: "fs-likes",
     templateUrl: `client/components/like/like.component.html`
 })
-
 export class LikeComponent implements OnInit {
-
     private likesArray: any = {};
-
-    constructor(
-        private apiService: ApiService,
+    constructor(private apiService: ApiService,
         private route: ActivatedRoute) { }
 
     ngOnInit() {
@@ -25,7 +21,7 @@ export class LikeComponent implements OnInit {
                 .addLikes(params.id)
                 .subscribe(
                 date => date,
-                error => console.log("ADD_LIKE: "+error)
+                error => alert(error)
                 );
             this.refresh();
         });
@@ -37,8 +33,11 @@ export class LikeComponent implements OnInit {
                 .getLikes(params.id)
                 .subscribe(
                 date => this.likesArray = date,
-                error => console.log("REFRESH_LIKE: "+error)
+                error => alert(error)
                 );
         });
+
     }
+
+
 }

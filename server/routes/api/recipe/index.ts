@@ -12,7 +12,10 @@ recipeApi.get("/", (request: Request, response: Response) => {
 
 recipeApi.get("/:id", (request: Request, response: Response) => {
     db.Recipe
-        .findById(request.params.id)
+        .findOne({
+            where: {id: request.params.id},
+            include: [{model: db.Comment, as: 'comments'}],
+        })
         .then(item => response.send(item));
 });
 
@@ -31,6 +34,8 @@ recipeApi.put("/", (request: Request, response: Response) => {
     })
         .then(recipe => response.send(recipe));
 });
+
+
 
 
 export { recipeApi };

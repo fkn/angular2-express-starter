@@ -13,15 +13,21 @@ module.exports = {
       { name: 'Kebab', createdAt: new Date(), updatedAt: new Date() }
     ], {}) 
     .then(() => queryInterface.bulkInsert('Measures', [
-      { name: 'gramm', type:'mass', power: 1, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'kg', type:'mass', power: 1000, createdAt:  new Date(), updatedAt: new Date() },
+      { name: 'gramm', type:'weight', power: 1, createdAt: new Date(), updatedAt: new Date() },
+      { name: 'kg', type:'weight', power: 1000, createdAt:  new Date(), updatedAt: new Date() },
       { name: 'ml', type:'volume', power: 1, createdAt: new Date(), updatedAt: new Date() }
-    ], {})))
+    ], {})
+    .then(() => queryInterface.bulkInsert('Comments', [
+      { name: 'gjmfgt', comment:'erhrhrhrt', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'gjmfkyykgt', comment:'erhrhtfgkykrhrt', createdAt:  new Date(), updatedAt: new Date() },
+      { name: 'gjmfyhkhgkhgt', comment:'erhrhrykyhklyhrt', createdAt: new Date(), updatedAt: new Date() }
+    ], {}))))
     .catch(err=>console.log(err));
   },
 
   down: function (queryInterface, Sequelize) {
     return queryInterface.bulkDelete('GroceryItem', null, {})
-      .then(() => queryInterface.bulkDelete('Recipe', null, {}) );
+      .then(() => queryInterface.bulkDelete('Recipe', null, {}) )
+      .then(() => queryInterface.bulkDelete('Measure', null, {}) );
   }
 };

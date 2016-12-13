@@ -34,8 +34,8 @@ export class ApiService {
             .map((response: Response) => response.json());
     }
 
-    addRecipe(name: String, description: String):Observable<any> {
-        let params = { name, description };
+    addRecipe(name: String, description: String) {
+        let params = JSON.stringify({ name: name, description: description });
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this
@@ -44,7 +44,7 @@ export class ApiService {
             .map((response: Response) => response.json());
     }
 
-    deleteRecipe(id: number):Observable<any> {
+    deleteRecipe(id: number): Observable<any> {
         return this
             .http
             .delete(`/api/recipe/${id}`)
@@ -74,23 +74,23 @@ export class ApiService {
     }
 
     updateGrocery(groceries: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
         return this
             .http
-            .post(`api/grocery/update/${ groceries.id }`, {groceries}, options)
+            .post(`api/grocery/update/${groceries.id}`, { groceries }, options)
             .map((response: Response) => response.json());
 
     }
 
     createGrocery(groceries: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
         return this
             .http
-            .post(`api/grocery/create`, {groceries}, options)
+            .post(`api/grocery/create`, { groceries }, options)
             .map((response: Response) => response.json());
 
     }
@@ -102,7 +102,7 @@ export class ApiService {
             .get(`/api/grocery/search/${term}`)
             .map((response: Response) => response.json());
     };
-
+    //создание меры
     getMeasures() {
         return this
             .http
@@ -110,24 +110,31 @@ export class ApiService {
             .map((response: Response) => response.json());
     }
 
-    postCreateMeasure(name: String, type: String, power: number) {
-        let params = JSON.stringify({ name: name, type: type, power: power });
+    getMeasure(id: number) {
+        return this
+            .http
+            .get(`/api/measure/${id}`)
+            .map((response: Response) => response.json());
+    }
+
+    postCreateMeasure(measures: any, type: String) {
+        let params = JSON.stringify({ name: measures.name, type: type, power: measures.power });
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this
             .http
             .post("/api/measure/", params, { headers: headers })
-            .map(res => res.json());
+            .map(res => res.json())
     }
 
-    putUpdateMeasure(id: number, name: String, type: String, power: number) {
-        let params = JSON.stringify({ id: id, name: name, type: type, power: power });
+    putUpdateMeasure(measure: any, type: String) {
+        let params = JSON.stringify({ id: measure.id, name: measure.name, type: type, power: measure.power });
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this
             .http
-            .put(`/api/measure/${id}`, params, { headers: headers })
-            .map(res => res.json());
+            .put(`/api/measure/${measure.id}`, params, { headers: headers })
+            .map(res => res.json())
     }
 
     deleteMeasure(id: number) {
@@ -136,6 +143,45 @@ export class ApiService {
         return this
             .http
             .delete(`/api/measure/${id}`, { headers: headers })
-            .map(res => res.json());
+            .map(res => res.json())
+
+    }
+    //создание комментария
+    sendComment(name: String, comment: String, recipeId: number) {
+        let params = JSON.stringify({ name: name, comment: comment , RecipeId: recipeId});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this
+            .http
+            .post('/api/comment/', params, { headers: headers })
+            .map(res => res.json())
+    }
+
+    getComments(id:number) {
+        return this
+            .http
+            .get(`/api/comment/${id}`)
+            .map((response: Response) => response.json());
+    }
+
+    //ЛАЙКИ
+    addLikes(recipeId: number){
+        let params = JSON.stringify({RecipeId: recipeId});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this
+            .http
+            .post('/api/like/', params, { headers: headers })
+            .map(res => res.json())
+    }
+
+    getLikes(recipeId: number){
+        return this
+            .http
+            .get(`/api/like/${recipeId}`)
+            .map((res: Response) => res.json());
     }
 }
+
+
+

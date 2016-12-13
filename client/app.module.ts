@@ -6,7 +6,7 @@ import { NgSemanticModule } from "ng-semantic";
 
 import { AppComponent }    from './app.component';
 import { routing }         from "./routes";
-import { HelloComponent }  from "./components/shared/hello.component";
+
 import { ContactModule }   from "./modules/contact/contact.module";
 import { HomeModule }      from "./modules/home/home.module";
 import { GroceriesModule } from "./modules/groceries/groceries.module";
@@ -23,6 +23,7 @@ import { MeasureModule }   from "./modules/measure/measure.module";
         GroceriesModule,
         RecipesModule,
         MeasureModule,
+        
         routing
     ],
     providers: [
@@ -32,11 +33,10 @@ import { MeasureModule }   from "./modules/measure/measure.module";
             noTokenScheme: true
         })
     ],
-    declarations: [ HelloComponent, AppComponent ],
+    declarations: [ AppComponent ],
     bootstrap:    [ AppComponent ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ]
 })
-
 export class AppModule {}

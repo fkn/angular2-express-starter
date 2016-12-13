@@ -6,13 +6,9 @@ import { ActivatedRoute, Params} from "@angular/router";
     selector: "fs-comments",
     templateUrl: `client/components/comment/com.component.html`
 })
-
 export class CommentComponent implements OnInit {
-
     private commentsArray: String[] = [];
-
-    constructor(
-        private apiService: ApiService,
+    constructor(private apiService: ApiService,
         private route: ActivatedRoute) { }
 
     ngOnInit() {
@@ -24,8 +20,8 @@ export class CommentComponent implements OnInit {
             this.apiService
                 .sendComment(name, comment, params.id)
                 .subscribe(
-                date => date,
-                error => console.log("SEND_COMMENT: "error)
+                date => console.log(date),
+                error => alert(error)
                 );
             this.refresh();
         });
@@ -38,4 +34,6 @@ export class CommentComponent implements OnInit {
                 .subscribe((data) => { this.commentsArray = data; });
         });
     }
+
+
 }
