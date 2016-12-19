@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {ApiService} from "../../../service/api.service";
 import {Router} from "@angular/router";
+import  * as quickSort from  "../all/sort";
 
 @Component({
     selector: "form",
@@ -29,7 +30,7 @@ export class GroceriesAllComponent implements OnInit {
     }
 
     createGrocery(groceries: any) {
-        console.log(groceries);
+        //console.log(groceries);
         this.apiService.createGrocery(groceries).subscribe((data)=> {
             this.showGrocery(data.id)
         });
@@ -40,10 +41,10 @@ export class GroceriesAllComponent implements OnInit {
     search(term: string) {
 
         if (term.length == 0) {
-            console.log(term.length);
+            //console.log(term.length);
             this.ngOnInit();
         } else {
-            this.apiService.search(term).subscribe((data => this.groceriesArray = data))
+            this.apiService.searchGrocery(term).subscribe((data => this.groceriesArray = data))
         }
     }
 
@@ -58,4 +59,10 @@ export class GroceriesAllComponent implements OnInit {
                 this.groceriesArray = data;
             });
     }
+
+    QuickSort(param) {
+        new quickSort.QuickSort().quick_sort(this.groceriesArray, param);
+    }
+
 }
+

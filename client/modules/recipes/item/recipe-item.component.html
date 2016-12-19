@@ -1,14 +1,33 @@
-<sm-div *ngIf="!editMode">
-	<sm-button class="positive" (click)="turnEditMode()" icon="edit">Edit recipe</sm-button>
-	<sm-button class="positive" (click)="deleteRecipe()" icon="delete">Delete recipe</sm-button>
-    <h1>Recipe: {{ recipe.name }}</h1>
-	<p>{{ recipe.description }}</p>
-</sm-div>
-<sm-div *ngIf="editMode">
-    <sm-button class="positive" (click)="turnEditMode()" icon="edit">Save changes</sm-button>
-    <sm-input [control]="name" class="right fluid"></sm-input>
-	<sm-input [control]="descr" class="right fluid"></sm-input>
-</sm-div>
+<div class="ui right aligned teal labeled icon button" (click)="editRecipeModal.show({blurring: false,closable: false})">
+	<i class="edit icon"></i>Edit recipe</div>
+<div class="ui icon inverted red button" (click)="deleteRecipe()"><i class="delete icon"></i>Delete recipe</div>
+<h2>Recipe: {{ recipe.name }}</h2>
+<h4>{{ recipe.description }}</h4>
+
+<sm-modal title="Edit recipe" class="" #editRecipeModal>
+	<modal-content>
+		<sm-list class="relaxed selection">
+			<sm-item>
+				<div class="ui fluid labeled input">
+					<div class="ui label">Name</div>
+					<input type="text" placeholder="Enter recipe name" value="{{ recipe.name }}" #name>
+				</div>
+			</sm-item>
+			<sm-item>
+				<div class="ui fluid labeled input">
+					<div class="ui label">Description</div>
+					<input type="text" placeholder="Enter recipe description" value="{{ recipe.description }}" #descr>
+				</div>
+			</sm-item>
+		</sm-list>
+	</modal-content>
+	<modal-actions>
+		<div class="ui buttons">
+			<div class="ui positive button primary" (click)="createModal.hide()">Save</div>
+			<div class="ui negative button primary" (click)="createModal.hide()">Exit</div>
+		</div>
+	</modal-actions>
+</sm-modal>
 
 <fs-likes></fs-likes>
 

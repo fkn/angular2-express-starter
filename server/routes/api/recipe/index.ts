@@ -14,7 +14,10 @@ recipeApi.get("/:id", (request: Request, response: Response) => {
     db.Recipe
         .findOne({
             where: {id: request.params.id},
-            include: [{model: db.Comment, as: 'comments'}],
+            include:[
+                {model: db.Comment, as: 'comments'}, 
+                {model: db.GroceryItem, as:"GroceryItemParam", required:false}
+            ]
         })
         .then(item => response.send(item));
 });
@@ -48,6 +51,5 @@ recipeApi.get("/search/:term", (request: Request, response: Response) => {
         .then(items => response.send(items));
 });
 
+export {recipeApi};
 
-
-export { recipeApi };

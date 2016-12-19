@@ -9,18 +9,11 @@ import { FormControl } from "@angular/forms";
 })
 export class RecipeItemComponent implements OnInit {
     private recipe: any = {};
-    private editMode: boolean = false;
-    private name: FormControl = new FormControl('');
-    private descr: FormControl = new FormControl('');
 
     constructor(
         private apiService: ApiService,
         private route: ActivatedRoute,
         private router: Router) { }
-
-    turnEditMode() {
-        this.editMode = !this.editMode; 
-    }
 
     deleteRecipe() {
         this.route.params.forEach((params: Params) => {

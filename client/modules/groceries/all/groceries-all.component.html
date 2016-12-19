@@ -1,41 +1,63 @@
-<div class="ui fluid basic segment">
-    <div class="ui fluid left icon action input">
-        <i class="search icon"></i>
-        <input type="text" placeholder="Grocery name.." #searchBox id="search-box" (keyup)="search(searchBox.value)">
-        <div class="ui right aligned teal labeled icon button"
-             (click)="createModal.show({blurring: false,closable: false})">Create New Grocery <i class="add icon"></i>
-        </div>
-        </div>
+<div class="ui segment">
+    <div class="ui left rail" style="min-height: 262.531px;">
+        <div class="ui sticky" style="left: 1356.5px; width: 272px !important; height: 262.531px !important;">
+            <sm-menu title="Groceries menu" class="vertical">
+                <sm-item>
+                    <div class="ui fluid left icon input">
+                        <i class="search icon"></i>
+                        <input type="text" placeholder="Grocery name.." #searchBox id="search-box"
+                               (keyup)="search(searchBox.value)">
+                    </div>
+                </sm-item>
+                <sm-item>
+                    <div class="ui right aligned teal labeled icon button"
+                         (click)="createModal.show({blurring: false,closable: false})">Create New Grocery <i
+                            class="add icon"></i>
+                    </div>
+                </sm-item>
+                <sm-dropdown class="left pointing link" title="Sort Grocery">
+                    <sm-item (click)="QuickSort('name')"> name</sm-item>
+                    <sm-item (click)="QuickSort('calories')"> Calories</sm-item>
+                    <sm-item (click)="QuickSort('fat')"> Fat</sm-item>
+                    <sm-item (click)="QuickSort('protein')"> Protein</sm-item>
+                    <sm-item (click)="QuickSort('carbohydrate')"> Carbohydrate</sm-item>
+                    <sm-item (click)="QuickSort('acid')"> Acid</sm-item>
+                    <sm-item (click)="QuickSort('polyols')"> Polyols</sm-item>
+                    <sm-item (click)="QuickSort('fibre')"> Fibre</sm-item>
+                    <sm-item (click)="QuickSort('ethanol')"> Ethanol</sm-item>
+                </sm-dropdown>
 
-</div>
-
-<sm-list class="ui medium aligned divided animated selection">
-    <sm-item (click)="showGrocery(item.id);" *ngFor="let item of groceriesArray" [attr.id]="'grocery:'+item.id">
-        <div class="right floated middle aligned content">
-            <button class="ui medium inverted red button" type="button"
-                    (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()"
-                    [attr.id]="'button:'+item.id">
-                <i class="Remove Outline icon"></i> Remove
-            </button>
-            <sm-modal title="Delete {{item.name}} grocery" class="ui basic modal" icon="Trash" #removeModal>
-                <modal-content>
-                    <p align="center">Are you sure you want to delete {{item.name}} grocery</p>
-                </modal-content>
-                <modal-actions>
-                    <sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
-                    </sm-button>
-                    <sm-button class="ui ok green basic inverted" icon="checkmark" (click)="remGrocery(item)"> Yes
-                    </sm-button>
-                </modal-actions>
-            </sm-modal>
+            </sm-menu>
         </div>
-        <div class="content">
-            <div class="middle aligned content">
-                <h4 class="ui grey header">{{item.id}} {{item.name}}</h4>
+    </div>
+    <sm-list class="ui medium aligned divided animated selection">
+        <sm-item (click)="showGrocery(item.id);" *ngFor="let item of groceriesArray" [attr.id]="'grocery:'+item.id">
+            <div class="right floated middle aligned content">
+                <button class="ui medium inverted red button" type="button"
+                        (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()"
+                        [attr.id]="'button:'+item.id">
+                    <i class="Remove Outline icon"></i> Remove
+                </button>
+                <sm-modal title="Delete {{item.name}} grocery" class="ui basic modal" icon="Trash" #removeModal>
+                    <modal-content>
+                        <p align="center">Are you sure you want to delete {{item.name}} grocery</p>
+                    </modal-content>
+                    <modal-actions>
+                        <sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
+                        </sm-button>
+                        <sm-button class="ui ok green basic inverted" icon="checkmark" (click)="remGrocery(item)"> Yes
+                        </sm-button>
+                    </modal-actions>
+                </sm-modal>
             </div>
-        </div>
-    </sm-item>
-</sm-list>
+            <div class="content">
+                <div class="middle aligned content">
+                    <h4 class="ui grey header">{{item.name}}</h4>
+                </div>
+            </div>
+        </sm-item>
+    </sm-list>
+</div>
 
 <sm-modal title="Create new grocery" class="" #createModal>
     <modal-content>
@@ -44,7 +66,8 @@
             <sm-item>
                 <div class="ui fluid labeled input">
                     <div class="ui label">Name</div>
-                    <input type="text" placeholder="Enter grocery name" (blur)="groceries.name=$event.target.value">
+                    <input type="text" placeholder="Enter grocery name"
+                           (blur)="groceries.name=$event.target.value.charAt(0).toUpperCase() + $event.target.value.slice(1)">
                 </div>
             </sm-item>
             <sm-item>
@@ -94,6 +117,13 @@
                     <div class="ui label">Fibre</div>
                     <input type="text" placeholder="Enter the amount of fibre in the grocery"
                            (blur)="groceries.fibre=$event.target.value">
+                </div>
+            </sm-item>
+            <sm-item>
+                <div class="ui fluid labeled input">
+                    <div class="ui label">Ethanol</div>
+                    <input type="text" placeholder="Enter the amount of ethanol in the grocery"
+                           (blur)="groceries.ethanol=$event.target.value">
                 </div>
             </sm-item>
             <sm-item>
