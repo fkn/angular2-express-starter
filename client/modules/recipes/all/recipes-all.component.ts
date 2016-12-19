@@ -9,13 +9,6 @@ import { FormControl } from "@angular/forms";
 })
 export class RecipesAllComponent implements OnInit {
     private recipesArray: any[];
-<<<<<<< HEAD
-
-    private name: FormControl = new FormControl('');
-    private descr: FormControl = new FormControl('');
-=======
->>>>>>> upstream/master
-
     constructor(
         private apiService: ApiService,
         private router: Router) { }

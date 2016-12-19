@@ -10,7 +10,6 @@ import { Location }from '@angular/common';
 
 })
 @NgModule({
-
     declarations: [KeysPipe]
 })
 export class MeasureItemComponent implements OnInit {
@@ -22,14 +21,12 @@ export class MeasureItemComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location) {}
 
-
     ngOnInit() {
         this.route.params.forEach( (params: Params) => {
             this.apiService
                 .getMeasure(params.id)
                 .subscribe( (data) => { this.measures = data; } );
         });
-
     }
     goBack(): void {
         this.location.back();
@@ -39,8 +36,6 @@ export class MeasureItemComponent implements OnInit {
         this.apiService.putUpdateMeasure(measures,type).subscribe();
 
     }
-    
-
 }
 
 @Pipe({name: 'keys'})
@@ -60,7 +55,6 @@ export class KeysPipe implements PipeTransform {
                 return a[keyName] > b[keyName] ? 1 : -1;
             });
         }
-
         return dataArr;
     }
 }

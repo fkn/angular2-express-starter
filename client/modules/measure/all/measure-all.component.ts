@@ -15,6 +15,7 @@ export class MeasureAllComponent implements OnInit {
     private powerSecond: number;
 
     constructor(private apiService: ApiService, private rout: Router) { }
+    
     ngOnInit() {
         this.apiService
             .getMeasures()
@@ -41,17 +42,18 @@ export class MeasureAllComponent implements OnInit {
             error => alert(error)
             );
     }
+
     refresh() { 
         this.apiService
             .getMeasures()
             .subscribe((data) => { this.measuresArray = data; });
     }
+
     goMeasureId(id: number) {
         this.rout.navigate(['/measure', id]);
     }
 
     convertMeasure(firstValue: number, firstName: String, secondName: String) {
-
         for (let i = 0; i < this.measuresArray.length; i++) {
             if (this.measuresArray[i].name === firstName) {
                 this.powerFirst = this.measuresArray[i].power;
@@ -62,8 +64,4 @@ export class MeasureAllComponent implements OnInit {
         }
         this.result = (firstValue * this.powerFirst) / this.powerSecond;
     }
-
-
-
-
 }
