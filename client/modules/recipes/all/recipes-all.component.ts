@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { ApiService } from "../../../service/api.service";
-import { FormControl } from "@angular/forms";
+import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
+import {ApiService} from "../../../service/api.service";
+import {FormControl} from "@angular/forms";
 
 @Component({
     selector: "recipes-all",
@@ -10,14 +10,16 @@ import { FormControl } from "@angular/forms";
 export class RecipesAllComponent implements OnInit {
     private recipesArray: any[];
 
-    constructor(
-        private apiService: ApiService,
-        private router: Router) { }
+    constructor(private apiService: ApiService,
+                private router: Router) {
+    }
 
     updateRecipies() {
         this.apiService
             .getRecipes()
-            .subscribe((data) => { this.recipesArray = data; });
+            .subscribe((data) => {
+                this.recipesArray = data;
+            });
     }
 
     showRecipe(id: number) {

@@ -1,12 +1,13 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpModule } from "@angular/http";
-import { NgSemanticModule } from "ng-semantic";
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {HttpModule} from "@angular/http";
+import {NgSemanticModule} from "ng-semantic";
+import {BrowserModule} from '@angular/platform-browser';
 
-import { GroceriesAllComponent } from "./all/groceries-all.component";
-import { GroceriesItemComponent } from './item/groceries-item.component';
-import { routing } from "./groceries.routing";
-import { SharedModule } from "../shared/shared.module";
+import {GroceriesAllComponent} from "./all/groceries-all.component";
+import {GroceriesItemComponent} from './item/groceries-item.component';
+import  {GroceriesRecipeWitchGroceryComponent} from "./recipeWitchGrocery/grocery-recipeWitchGrocery.component"
+import {routing} from "./groceries.routing";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
     imports: [
@@ -16,11 +17,12 @@ import { SharedModule } from "../shared/shared.module";
         routing,
         SharedModule.forRoot()
     ],
-    exports: [  ],
-    declarations: [ GroceriesAllComponent,GroceriesItemComponent],
-    bootstrap:    [ GroceriesAllComponent ],
+    exports: [],
+    declarations: [GroceriesAllComponent, GroceriesItemComponent, GroceriesRecipeWitchGroceryComponent],
+    bootstrap: [GroceriesAllComponent],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA
     ]
 })
-export class GroceriesModule { }
+export class GroceriesModule {
+}

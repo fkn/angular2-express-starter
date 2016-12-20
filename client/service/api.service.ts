@@ -109,14 +109,22 @@ export class ApiService {
             .map((response: Response) => response.json());
     };
 
+    searchGroceryWithRecipe(id: string) {
+        return this
+            .http
+            .get(`/api/recipe/search/recipeInGrocery/${id}`)
+            .map((response: Response) => response.json());
+    };
+
     updateImage(id: number, file) {
+        console.log(file.length);
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
         return this
             .http
             .post(`/api/grocery/image/update`, {grocery_id: id, file: file}, options)
-            //.subscribe(()=>(true), (er)=>console.error(er));
-            .map((response: Response) => true);
+            .subscribe(()=>(true), (er)=>console.error(er));
+        // .map((response: Response) => true);
 
     }
 

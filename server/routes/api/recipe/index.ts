@@ -1,4 +1,4 @@
-import { Router, Response, Request, NextFunction } from "express";
+import {Router, Response, Request, NextFunction} from "express";
 
 const recipeApi: Router = Router();
 
@@ -12,16 +12,13 @@ recipeApi.get("/", (request: Request, response: Response) => {
 
 recipeApi.get("/:id", (request: Request, response: Response) => {
     db.Recipe
-        .findAll({
+        .findOne({
             where: {
                 id: request.params.id
             },
-            include:{
-                model: db.GroceryItem,
-                as:"GroceryItemParam",
-                required:false
-
-            }
+            include: [
+                {model: db.GroceryItem, as: "GroceryItemParam", required: false}
+            ]
         })
         .then(item => response.send(item));
 });
@@ -29,7 +26,7 @@ recipeApi.get("/:id", (request: Request, response: Response) => {
 recipeApi.delete("/:id", (request: Request, response: Response) => {
     let id = request.params.id;
     db.Recipe
-        .destroy({ where: { id } })
+        .destroy({where: {id}})
         .then(() => response.sendStatus(200));
 });
 
@@ -54,5 +51,22 @@ recipeApi.get("/search/:term", (request: Request, response: Response) => {
         })
         .then(items => response.send(items));
 });
+
+recipeApi.get("/search/recipeInGrocery/:id", (request: Request, response: Response) => {
+    console.log(request.params.id);
+    db.Recipe
+        .findAll({
+            include: {
+                model: db.GroceryItem,
+                as: "GroceryItemParam",
+                required: false,
+                where: {
+                    id: request.params.id
+                }
+            },
+        })
+        .then(items => response.send(items));
+});
+
 
 export {recipeApi};

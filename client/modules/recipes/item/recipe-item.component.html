@@ -1,30 +1,65 @@
-<div class="ui right aligned teal labeled icon button" (click)="editRecipeModal.show({blurring: false,closable: false})">
-	<i class="edit icon"></i>Edit recipe</div>
+<div class="ui right aligned teal labeled icon button"
+     (click)="editRecipeModal.show({blurring: false,closable: false})">
+    <i class="edit icon"></i>Edit recipe
+</div>
 <div class="ui icon inverted red button" (click)="deleteRecipe()"><i class="delete icon"></i>Delete recipe</div>
 <h2>Recipe: {{ recipe.name }}</h2>
 <h4>{{ recipe.description }}</h4>
 
 <sm-modal title="Edit recipe" class="" #editRecipeModal>
-	<modal-content>
-		<sm-list class="relaxed selection">
-			<sm-item>
-				<div class="ui fluid labeled input">
-					<div class="ui label">Name</div>
-					<input type="text" placeholder="Enter recipe name" value="{{ recipe.name }}" #name>
-				</div>
-			</sm-item>
-			<sm-item>
-				<div class="ui fluid labeled input">
-					<div class="ui label">Description</div>
-					<input type="text" placeholder="Enter recipe description" value="{{ recipe.description }}" #descr>
-				</div>
-			</sm-item>
-		</sm-list>
-	</modal-content>
-	<modal-actions>
-		<div class="ui buttons">
-			<div class="ui positive button primary" (click)="createModal.hide()">Save</div>
-			<div class="ui negative button primary" (click)="createModal.hide()">Exit</div>
-		</div>
-	</modal-actions>
+    <modal-content>
+        <sm-list class="relaxed selection">
+            <sm-item>
+                <div class="ui fluid labeled input">
+                    <div class="ui label">Name</div>
+                    <input type="text" placeholder="Enter recipe name" value="{{ recipe.name }}" #name>
+                </div>
+            </sm-item>
+            <sm-item>
+                <div class="ui fluid labeled input">
+                    <div class="ui label">Description</div>
+                    <input type="text" placeholder="Enter recipe description" value="{{ recipe.description }}" #descr>
+                </div>
+            </sm-item>
+        </sm-list>
+    </modal-content>
+    <modal-actions>
+        <div class="ui buttons">
+            <div class="ui positive button primary" (click)="createModal.hide()">Save</div>
+            <div class="ui negative button primary" (click)="createModal.hide()">Exit</div>
+        </div>
+    </modal-actions>
 </sm-modal>
+
+<div class="ui segment">
+    <sm-list class="ui medium aligned divided animated selection">
+        <sm-item *ngFor="let item of recipe.GroceryItemParam">
+            <div class="right floated middle aligned content">
+                <button class="ui medium inverted red button" type="button"
+                        (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()">
+                    <i class="Remove Outline icon"></i> Remove from recipe
+                </button>
+                <sm-modal title="Delete {{item.name}} grocery" class="ui basic modal" icon="Trash" #removeModal>
+                    <modal-content>
+                        <p align="center">Are you sure you want to delete {{item.name}} grocery</p>
+                    </modal-content>
+                    <modal-actions>
+                        <sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
+                        </sm-button>
+                        <sm-button class="ui ok green basic inverted" icon="checkmark"
+                                   (click)="removeFromRecipe(item.id)"> Yes
+                        </sm-button>
+                    </modal-actions>
+                </sm-modal>
+            </div>
+            <div class="content">
+                <div class="middle aligned content">
+                    <h4 class="ui grey header">{{item.name}}</h4>
+                </div>
+            </div>
+        </sm-item>
+    </sm-list>
+</div>
+<div class="ui right floated buttons">
+    <button (click)="goBack()" class="ui button">Back</button>
+</div>
