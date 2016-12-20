@@ -9,7 +9,6 @@ import { FormControl } from "@angular/forms";
 })
 export class RecipesAllComponent implements OnInit {
     private recipesArray: any[];
-
     constructor(
         private apiService: ApiService,
         private router: Router) { }
@@ -18,6 +17,8 @@ export class RecipesAllComponent implements OnInit {
         this.apiService
             .getRecipes()
             .subscribe((data) => { this.recipesArray = data; });
+
+
     }
 
     showRecipe(id: number) {
@@ -56,5 +57,6 @@ export class RecipesAllComponent implements OnInit {
 
     ngOnInit() {
         this.updateRecipies();
+
     }
 }

@@ -12,16 +12,12 @@ recipeApi.get("/", (request: Request, response: Response) => {
 
 recipeApi.get("/:id", (request: Request, response: Response) => {
     db.Recipe
-        .findAll({
-            where: {
-                id: request.params.id
-            },
-            include:{
-                model: db.GroceryItem,
-                as:"GroceryItemParam",
-                required:false
-
-            }
+        .findOne({
+            where: {id: request.params.id},
+            include:[
+                {model: db.Comment, as: 'comments'}, 
+                {model: db.GroceryItem, as:"GroceryItemParam", required:false}
+            ]
         })
         .then(item => response.send(item));
 });
@@ -56,3 +52,4 @@ recipeApi.get("/search/:term", (request: Request, response: Response) => {
 });
 
 export {recipeApi};
+

@@ -1,0 +1,36 @@
+<table class="ui celled table">
+    <thead>
+        <tr>
+            <th contenteditable="true" (blur)="measures.name=$event.target.outerText" colspan="2"> {{ measures.name }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Type</td>
+        <td class="selectable" contenteditable="true" >
+            <select #sel>
+                <option  *ngFor="let item of typesArray" >{{item}}</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>Power</td>
+        <td class="selectable" contenteditable="true" (blur)="measures.power=$event.target.outerText">
+            {{measures.power}}
+        </td>
+    </tr>
+    </tbody>
+    <tfoot class="full-width">
+    <tr>
+        <th colspan="2">
+            <div class="ui right floated buttons">
+                <button  (click)="updateMeasure(measures,sel.value)" class="ui positive button">Save</button>
+                <div class="or"></div>
+                <button (click)="goBack()" class="ui button">Cancel</button>
+            </div>
+
+        </th>
+    </tr>
+    </tfoot>
+</table>

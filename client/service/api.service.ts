@@ -81,23 +81,21 @@ export class ApiService {
     }
 
     updateGrocery(groceries: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
         return this
             .http
             .post(`api/grocery/update/${ groceries.id }`, {groceries}, options)
             .map((response: Response) => true);
-
     }
 
     createGrocery(groceries: any) {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
         return this
             .http
-            .post(`api/grocery/create`, {groceries}, options)
+            .post(`api/grocery/create`, { groceries }, options)
             .map((response: Response) => response.json());
 
     }
@@ -134,15 +132,23 @@ export class ApiService {
             .map((response: Response) => response.json());
     }
 
+    getMeasure(id: number) {
+        return this
+            .http
+            .get(`/api/measure/${id}`)
+            .map((response: Response) => response.json());
+    }
+
     postCreateMeasure(name: String, type: String, power: number) {
         let params = JSON.stringify({name: name, type: type, power: power});
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         return this
             .http
-            .post("/api/measure/", params, {headers: headers})
-            .map(res => res.json());
+            .post("/api/measure/", params, { headers: headers })
+            .map(res => res.json())
     }
+
 
     putUpdateMeasure(id: number, name: String, type: String, power: number) {
         let params = JSON.stringify({id: id, name: name, type: type, power: power});
@@ -159,7 +165,46 @@ export class ApiService {
         headers.append('Content-Type', 'application/json');
         return this
             .http
-            .delete(`/api/measure/${id}`, {headers: headers})
-            .map(res => res.json());
+            .delete(`/api/measure/${id}`, { headers: headers })
+            .map(res => res.json())
+    }
+    
+    //создание комментария
+    sendComment(name: String, comment: String, recipeId: number) {
+        let params = JSON.stringify({ name: name, comment: comment , RecipeId: recipeId});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this
+            .http
+            .post('/api/comment/', params, { headers: headers })
+            .map(res => res.json())
+    }
+
+    getComments(id:number) {
+        return this
+            .http
+            .get(`/api/comment/${id}`)
+            .map((response: Response) => response.json());
+    }
+
+    //ЛАЙКИ
+    addLikes(recipeId: number){
+        let params = JSON.stringify({RecipeId: recipeId});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this
+            .http
+            .post('/api/like/', params, { headers: headers })
+            .map(res => res.json())
+    }
+
+    getLikes(recipeId: number){
+        return this
+            .http
+            .get(`/api/like/${recipeId}`)
+            .map((res: Response) => res.json());
     }
 }
+
+
+

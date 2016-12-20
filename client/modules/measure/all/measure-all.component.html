@@ -1,53 +1,109 @@
-<sm-list class="relaxed selection divided">
-    <sm-item *ngFor="let item of measuresArray">{{item.id}} {{item.name}} {{item.type}} {{item.power}}
-        <button (click)="delete(item.id)">Delete</button>
-        <button (click)="updateMeasureValidate(item.id)">Update</button>
-    </sm-item>
-</sm-list>
-
-<div class="ui container">
-    <sm-segment class="raised">
-        <div *ngIf="showCreate">
-            <h1>Create new Measure</h1>
-            <label>Name:</label>
-            <input type="text" name="name" placeholder="Measure" #name />
-            <label>Type:</label>
-            <select name="type" #type>
-                <option  *ngFor="let item of typesArray">{{item}}</option>
-            </select>
-            <label>Power:</label>
-            <input type="text" name="power" placeholder="Power" #power />
-            <button (click)="createMeasure(name.value,type.value,power.value)">Create</button>
+<div class="ui fluid basic segment">
+    <div class="ui fluid left icon action input">
+        <div class="ui right aligned teal labeled icon button" (click)="createModal.show({blurring: false,closable: false})">Create New Meassure <i class="add icon"></i>
         </div>
-
-        <div *ngIf="showUpdate">
-            <h1>Update Measure</h1>
-            <label>Name:</label>
-            <input type="text" name="name" placeholder="Measure" #name />
-            <label>Type:</label>
-            <select name="type" #type>
-                <option  *ngFor="let item of typesArray">{{item}}</option>
-            </select>
-            <label>Power:</label>
-            <input type="text" name="power" placeholder="Power" #power />
-            <button (click)="updateMeasure(update,name.value,type.value,power.value)">Update</button>
+        <div class="ui fluid left icon action input">
+            <div class="ui right aligned teal labeled icon button" (click)="createModalConventer.show({blurring: false,closable: false})">Open Converter <i class="Law icon"></i>
+            </div>
         </div>
-    </sm-segment>
-</div>
+    </div>
 
-<div class="ui container">
-    <sm-segment class="raised">
-        <h1>Converter</h1>
-        <input type="text" name="first" placeholder="Value" #firstValue />
-        <select name="type" #firstName>
-            <option  *ngFor="let item of measuresArray">{{item.name}}</option>
-        </select>
-        to 
-        <select name="type" #secondName>
-            <option  *ngFor="let item of measuresArray">{{item.name}}</option>
-        </select>
-        <button (click)="convertMeasure(firstValue.value,firstName.value,secondName.value)">Convert</button>
-        
-        <div>{{result}}</div>
-    </sm-segment>
-</div>
+    <sm-list class="ui medium aligned divided animated selection">
+        <sm-item (click)="goMeasureId(item.id);" *ngFor="let item of measuresArray" [attr.id]="'measure:'+item.id">
+            <div class="right floated middle aligned content">
+                <button class="ui medium inverted red button" type="button" (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()"
+                    [attr.id]="'button:'+item.id">
+                <i class="Remove Outline icon"></i> Remove
+            </button>
+                <sm-modal title="Delete {{item.name}} measure" class="ui basic modal" icon="Trash" #removeModal>
+                    <modal-content>
+                        <p align="center">Are you sure you want to delete {{item.name}} measure</p>
+                    </modal-content>
+                    <modal-actions>
+                        <sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
+                        </sm-button>
+                        <sm-button class="ui ok green basic inverted" icon="checkmark" (click)="delete(item.id)"> Yes
+                        </sm-button>
+                    </modal-actions>
+                </sm-modal>
+            </div>
+            <div class="content">
+                <div class="middle aligned content">
+                    <h4 class="ui grey header">{{item.id}} {{item.name}}</h4>
+                </div>
+            </div>
+        </sm-item>
+    </sm-list>
+    <sm-modal title="Converter" class="" #createModalConventer>
+        <modal-content>
+            <sm-list class="relaxed selection">
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">Value</div>
+                        <input type="text" name="first" placeholder="Value" #firstValue />
+                    </div>
+                </sm-item>
+
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">From</div>
+                        <select name="type" #firstName>
+                            <option  *ngFor="let item of measuresArray">{{item.name}}</option>
+                        </select>
+                    </div>
+                </sm-item>
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">To</div>
+                        <select name="type" #secondName>
+                            <option  *ngFor="let item of measuresArray">{{item.name}}</option>
+                        </select>
+                    </div>
+                </sm-item>
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">Result</div>
+                        <div>{{result}}</div>
+                    </div>
+                </sm-item>
+            </sm-list>
+        </modal-content>
+        <modal-actions>
+            <div class="ui buttons">
+                <div class="ui positive button primary" (click)="convertMeasure(firstValue.value,firstName.value,secondName.value)">Convert</div>
+                <div class="ui negative button primary" (click)="createModal.hide()">Exit</div>
+            </div>
+        </modal-actions>
+    </sm-modal>
+    <sm-modal title="Create new measure" class="" #createModal>
+        <modal-content>
+            <sm-list class="relaxed selection">
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">Name</div>
+                        <input type="text" placeholder="Enter measure name" (blur)="measures.name=$event.target.value">
+                    </div>
+                </sm-item>
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">Type</div>
+                        <select #sel>
+                       <option  *ngFor="let item of typesArray" >{{item}}</option>
+                    </select>
+                    </div>
+                </sm-item>
+                <sm-item>
+                    <div class="ui fluid labeled input">
+                        <div class="ui label">Power</div>
+                        <input type="text" placeholder="Enter measure power" (blur)="measures.power=$event.target.value">
+                    </div>
+                </sm-item>
+            </sm-list>
+        </modal-content>
+        <modal-actions>
+            <div class="ui buttons">
+                <div class="ui positive button primary" (click)="createMeasure(measures,sel.value)">Create</div>
+                <div class="ui negative button primary" (click)="createModal.hide()">Exit</div>
+            </div>
+        </modal-actions>
+    </sm-modal>

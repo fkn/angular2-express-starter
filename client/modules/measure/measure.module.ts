@@ -4,6 +4,7 @@ import { NgSemanticModule } from "ng-semantic";
 import { BrowserModule } from '@angular/platform-browser';
 
 import { MeasureAllComponent } from "./all/measure-all.component";
+import { MeasureItemComponent } from "./item/measure-item.component";
 import { routing } from "./measure.routing";
 import { SharedModule } from "../shared/shared.module";
  
@@ -17,7 +18,9 @@ import { SharedModule } from "../shared/shared.module";
     ],
     exports: [],
     declarations: [
-        MeasureAllComponent
+
+        MeasureAllComponent,
+        MeasureItemComponent
     ],
     bootstrap: [MeasureAllComponent],
     schemas: [
