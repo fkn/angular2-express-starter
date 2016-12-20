@@ -20,9 +20,9 @@ module.exports = function (sequelize, DataTypes) {
                         unique: false,
                     },
                     foreignKey: 'recipe_id',
-                    //constraints: false
+                    constraints: false
                 });
-                // Recipe.belongsToMany(models.GroceryItem,{through: models.RecipeHasGrocery});
+
             }
         }
     });

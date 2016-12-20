@@ -1,0 +1,14 @@
+<div class="ui segment">
+    <sm-list class="ui medium aligned divided animated selection">
+        <sm-item *ngFor="let item of recipeArray">
+            <div class="content">
+                <div class="middle aligned content" *ngFor="let grocery of item.GroceryItemParam">
+                    <h4 class="ui grey header" *ngIf="item.name!=0">{{item.name}}</h4>
+                </div>
+            </div>
+        </sm-item>
+    </sm-list>
+</div>
+<div class="ui right floated buttons">
+    <button (click)="goBack()" class="ui button">Back</button>
+</div>

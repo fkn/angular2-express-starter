@@ -2,6 +2,7 @@ import {Router, Response, Request, NextFunction} from "express";
 import {onError} from "@angular/upgrade/src/util";
 import {logError} from "typings/dist/support/cli";
 import {controlNameBinding} from "@angular/forms/src/directives/reactive_directives/form_control_name";
+var fs = require('fs');
 
 const groceryApi: Router = Router();
 
@@ -78,10 +79,13 @@ groceryApi.get("/search/:term", (request: Request, response: Response) => {
 });
 
 groceryApi.post("/image/update", (request: Request, response: Response) => {
-    console.log(request.body.file);
+
+    console.log('blob = ' + request.body.file);
+
+    console.log(request.body.file[0]);
     db.Image
         .update({
-            file: request.body.file
+            file: request.body.file[0]
         }, {
             where: {
                 id: request.body.grocery_id
@@ -94,5 +98,6 @@ groceryApi.get("/image/get/:id", (request: Request, response: Response) => {
         .findById(request.params.id)
         .then(item => response.send(item));
 });
+
 
 export {groceryApi};
