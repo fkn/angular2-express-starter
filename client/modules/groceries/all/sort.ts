@@ -28,7 +28,6 @@ export class QuickSort {
 
             this.qsort(list, prop, begin, pivot);
             this.qsort(list, prop, pivot + 1, end);
-
         }
     }
 

@@ -1,35 +1,39 @@
 <div class="ui fluid basic segment">
-	<div class="ui fluid left icon action input">
-		<i class="search icon"></i>
-		<input type="text" placeholder="Recipe name..." #searchBox (keyup)="searchRecipes(searchBox.value)">
-		<div class="ui right aligned teal labeled icon button" (click)="createRecipeModal.show({blurring: false,closable: false})"><i class="add icon"></i>Create New Recipe</div>
-	</div>
+    <div class="ui fluid left icon action input">
+        <i class="search icon"></i>
+        <input type="text" placeholder="Recipe name..." #searchBox (keyup)="searchRecipes(searchBox.value)">
+        <div class="ui right aligned teal labeled icon button"
+             (click)="createRecipeModal.show({blurring: false,closable: false})"><i class="add icon"></i>Create New
+            Recipe
+        </div>
+    </div>
 </div>
 
 <div class="ui medium aligned divided animated selection list">
-	<div class="item" (click)="showRecipe(item.id)" *ngFor="let item of recipesArray">
-		<div class="right floated middle aligned content">
-			<button class="ui medium inverted red button" type="button" (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()">
+    <div class="item" (click)="showRecipe(item.id)" *ngFor="let item of recipesArray">
+        <div class="right floated middle aligned content">
+            <button class="ui medium inverted red button" type="button"
+                    (click)="removeModal.show({blurring: false,closable: false});$event.stopPropagation()">
                 <i class="Remove Outline icon"></i> Remove
             </button>
-			<sm-modal title="Delete {{item.name}} recipe" class="ui basic modal" icon="Trash" #removeModal>
-				<modal-content>
-					<p align="center">Are you sure you want to delete {{item.name}} recipe?</p>
-				</modal-content>
-				<modal-actions>
-					<sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
-					</sm-button>
-					<sm-button class="ui ok green basic inverted" icon="checkmark" (click)="deleteRecipe(item.id)"> Yes
-					</sm-button>
-				</modal-actions>
-			</sm-modal>
-		</div>
-		<div class="content">
-			<div class="middle aligned content">
-				<h4 class="ui grey header">{{item.id}} {{item.name}}</h4>
-			</div>
-		</div>
-	</div>
+            <sm-modal title="Delete {{item.name}} recipe" class="ui basic modal" icon="Trash" #removeModal>
+                <modal-content>
+                    <p align="center">Are you sure you want to delete {{item.name}} recipe?</p>
+                </modal-content>
+                <modal-actions>
+                    <sm-button class="ui cancel red basic inverted" icon="remove" (click)="removeModal.hide()"> No
+                    </sm-button>
+                    <sm-button class="ui ok green basic inverted" icon="checkmark" (click)="deleteRecipe(item.id)"> Yes
+                    </sm-button>
+                </modal-actions>
+            </sm-modal>
+        </div>
+        <div class="content">
+            <div class="middle aligned content">
+                <h4 class="ui grey header">{{item.id}} {{item.name}}</h4>
+            </div>
+        </div>
+    </div>
 </div>
 
 <sm-modal title="Create new recipe" class="" #createRecipeModal>
@@ -56,4 +60,3 @@
 		</div>
 	</modal-actions>
 </sm-modal>
-

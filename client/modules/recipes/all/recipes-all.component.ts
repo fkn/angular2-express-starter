@@ -17,8 +17,6 @@ export class RecipesAllComponent implements OnInit {
         this.apiService
             .getRecipes()
             .subscribe((data) => { this.recipesArray = data; });
-
-
     }
 
     showRecipe(id: number) {

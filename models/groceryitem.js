@@ -29,10 +29,9 @@ module.exports = function (sequelize, DataTypes) {
                         unique: false,
                     },
                     foreignKey: 'grocery_items',
-                    //as: "Recipes",
-                    //constraints: false
+                    constraints: false
                 });
-                // GroceryItem.belongsToMany(models.Recipe, {through:models.RecipeHasGrocery});
+
 
             }
         }
